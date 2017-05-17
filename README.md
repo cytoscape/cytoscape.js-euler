@@ -1,10 +1,14 @@
-cytoscape-euler
-================================================================================
+# cytoscape-euler
 
 
 ## Description
 
 Euler is a fast, high-quality force-directed (physics simulation) layout for Cytoscape.js
+
+
+## Contribution guidelines
+
+Please refer to [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
 
 
 ## Mozilla Global Sprint 2017 instructions
