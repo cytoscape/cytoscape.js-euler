@@ -86,11 +86,9 @@ TODO describe the options that the Euler layout supports.
 
 ## Build instructions
 
-* `npm run build` : Build `./src/**` into `{{fullName}}.js`
-* `npm run watch` : Automatically build on changes with live reloading
-  * N.b. you must already have an HTTP server running
-* `npm run budo` : Automatically build on changes with live reloading with budo
-  * N.b. budo uses its own HTTP server
+* `npm run build` : Build `./src/**` into `cytoscape-euler.js`
+* `npm run watch` : Automatically build on changes with live reloading (N.b. you must already have an HTTP server running)
+* `npm run dev` : Automatically build on changes with live reloading with webpack dev server
 * `npm run lint` : Run eslint on the source
 
 N.b. all builds use babel, so modern ES features can be used in the `src`.
