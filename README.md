@@ -21,9 +21,11 @@ The layout should:
 
 - be fast;
 - give high quality results for non-compound graphs;
-- have a relatively small filesize (ideally <10KB);
+- have a relatively small filesize (ideally <20KB);
 - have lots of options for configuring / fine-tuning the layout;
 - have basic support for compound graphs;
+- be modular such that everything but its physics algorithm could be reusable as a generic force-directed layout superclass;
+- use modern tooling so that `slush-js` can be updated to generate extensions that use this tooling;
 
 These requirements would make Euler fit in a currently unfilled niche in the set of Cytoscape.js layouts.  A layout that meets these requirements would be very useful to scientists and commercial developers.
 
@@ -38,7 +40,8 @@ The tasks to complete the layout project are in the [`mozsprint2017`](https://gi
 
 ## Dependencies
 
- * Cytoscape.js ^3.0.0
+ * cytoscape@^3.0.0
+ * object-assign@^4.1.1
 
 
 ## Usage instructions
@@ -50,10 +53,18 @@ Download the library:
 
 `require()` the library as appropriate for your project:
 
+ES import:
+```js
+import cytoscape from 'cytoscape';
+import euler from 'cytoscape-euler';
+
+cytoscape.use( euler );
+```
+
 CommonJS:
 ```js
-var cytoscape = require('cytoscape');
-var euler = require('cytoscape-euler');
+let cytoscape = require('cytoscape');
+let euler = require('cytoscape-euler');
 
 cytoscape.use( euler );
 ```
@@ -73,10 +84,23 @@ Plain HTML/JS has the extension registered for you automatically, because no `re
 TODO describe the options that the Euler layout supports.
 
 
+## Build instructions
+
+* `npm run build` : Build `./src/**` into `{{fullName}}.js`
+* `npm run watch` : Automatically build on changes with live reloading
+  * N.b. you must already have an HTTP server running
+* `npm run budo` : Automatically build on changes with live reloading with budo
+  * N.b. budo uses its own HTTP server
+* `npm run lint` : Run eslint on the source
+
+N.b. all builds use babel, so modern ES features can be used in the `src`.
+
+
 ## Publishing instructions
 
 This project is set up to automatically be published to npm and bower.  To publish:
 
-1. Set the version number environment variable: `export VERSION=1.2.3`
-1. Publish: `gulp publish`
+1. Build the extension : `npm run build`
+1. Bump the version number and tag: `npm version major|minor|patch`
+1. Publish to npm: `npm publish .`
 1. If publishing to bower for the first time, you'll need to run `bower register cytoscape-euler https://github.com/cytoscape/cytoscape.js-euler.git`

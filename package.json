@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "description": "A fast, high-quality force-directed (physics simulation) layout for Cytoscape.js",
   "main": "cytoscape-euler.js",
-  "spm": {
-    "main": "cytoscape-euler.js"
-  },
   "scripts": {
+    "lint": "eslint src",
+    "build": "cross-env NODE_ENV=production webpack",
+    "watch": "webpack --progress --watch",
+    "dev": "webpack-dev-server --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,18 +24,17 @@
   },
   "homepage": "https://github.com/cytoscape/cytoscape.js-euler",
   "devDependencies": {
-    "gulp": "^3.8.8",
-    "gulp-jshint": "^1.8.5",
-    "gulp-prompt": "^0.1.1",
-    "gulp-replace": "^0.4.0",
-    "gulp-shell": "^0.2.9",
-    "jshint-stylish": "^1.0.0",
-    "run-sequence": "^1.0.0"
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.5.1",
+    "camelcase": "^4.1.0",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
   },
   "peerDependencies": {
     "cytoscape": "^3.0.0"
   },
   "dependencies": {
-    "weaverjs": "^1.2.0"
+    "object-assign": "^4.1.1"
   }
 }
