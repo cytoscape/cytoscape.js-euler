@@ -39,8 +39,15 @@ class Layout {
     s.nodes.forEach( n => setInitialNodePosition( n, s ) );
 
     if( s.animateContinuously ){
+      let fit = () => {
+        if( s.fit && s.animateContinuously ){
+          s.cy.fit( s.padding );
+        }
+      };
+
       let onNotDone = () => {
         refreshPositions( s.nodes );
+        fit();
 
         requestAnimationFrame( frame );
       };
@@ -50,6 +57,9 @@ class Layout {
       };
 
       let onDone = () => {
+        refreshPositions( s.nodes );
+        fit();
+
         s.running = false;
 
         l.emit('layoutstop');

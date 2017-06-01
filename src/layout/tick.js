@@ -1,4 +1,5 @@
 const { getNodePositionData } = require('./position');
+const nop = function(){};
 
 let tick = function( state ){
   let s = state;
@@ -22,7 +23,7 @@ let tick = function( state ){
   s.tickIndex++;
 };
 
-let multitick = function( state, onNotDone, onDone ){
+let multitick = function( state, onNotDone = nop, onDone = nop ){
   let done = false;
   let s = state;
 
@@ -32,14 +33,10 @@ let multitick = function( state, onNotDone, onDone ){
     if( done ){ break; }
   }
 
-  if( s.fit && s.animateContinuously ){
-    s.cy.fit( s.padding );
-  }
-
   if( !done ){
-    if( onNotDone != null ){ onNotDone(); }
+    onNotDone();
   } else {
-    if( onDone != null ){ onDone(); }
+    onDone();
   }
 };
 
