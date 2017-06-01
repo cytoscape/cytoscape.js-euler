@@ -41,7 +41,7 @@ The tasks to complete the layout project are in the [`mozsprint2017`](https://gi
 ## Dependencies
 
  * cytoscape@^3.0.0
- * object-assign@^4.1.1
+ * object-assign@^4.1.1 (or a global `Object.assign()` polyfill)
 
 
 ## Usage instructions

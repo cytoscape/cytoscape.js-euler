@@ -1,3 +1,4 @@
+// TODO default euler-specific options
 module.exports = Object.freeze({
-  // TODO default euler-specific options
+
 });

@@ -19,7 +19,7 @@ class Layout {
       animateContinuously: o.animate && !o.animateEnd,
       tickIndex: 0,
       firstUpdate: true
-    });
+    } );
   }
 
   run(){
@@ -74,15 +74,15 @@ class Layout {
   }
 
   // these functions would be overridden by subclasses
-  preTick( state ){
+  preTick( state ){ // eslint-disable-line no-unused-vars
     // do something after all nodes ticked
   }
 
-  postTick( state ){
+  postTick( state ){ // eslint-disable-line no-unused-vars
     // do something after all nodes ticked
   }
 
-  tickNode( state, positionData ){
+  tickNode( state, positionData ){ // eslint-disable-line no-unused-vars
     // modify { x, y } in positionData
   }
 
