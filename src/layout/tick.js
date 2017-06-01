@@ -7,11 +7,7 @@ let tick = function( state ){
 
   if( s.tickIndex >= s.maxIterations ){ return true; }
 
-  l.preTick( s );
-
-  s.nodes.forEach( node => l.tickNode( s, getNodePositionData( node ) ) );
-
-  l.postTick( s );
+  let isDone = l.tick( s );
 
   if( s.firstUpdate ){
     if( s.animateContinuously ){ // indicate the initial positions have been set
@@ -21,6 +17,8 @@ let tick = function( state ){
   }
 
   s.tickIndex++;
+
+  return isDone;
 };
 
 let multitick = function( state, onNotDone = nop, onDone = nop ){

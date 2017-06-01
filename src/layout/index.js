@@ -2,24 +2,26 @@
 A generic force-directed layout class
 */
 
-const assign = require('object-assign');
+const assign = require('../assign');
 const defaults = require('./defaults');
 const makeBoundingBox = require('./make-bb');
-const { setInitialNodePosition, refreshPositions, getNodePosition } = require('./position');
+const { setInitialNodePosition, refreshPositions, getNodePositionData } = require('./position');
 const { multitick } = require('./tick');
 
 class Layout {
   constructor( options ){
     let o = this.options = assign( {}, defaults, options );
 
-    this.state = assign( {}, o, {
+    let s = this.state = assign( {}, o, {
       layout: this,
       nodes: o.eles.nodes(),
-      animateEnd: o.animate && o.animate !== 'end',
-      animateContinuously: o.animate && !o.animateEnd,
+      edges: o.eles.edges(),
       tickIndex: 0,
       firstUpdate: true
     } );
+
+    s.animateEnd = o.animate && o.animate === 'end';
+    s.animateContinuously = o.animate && !s.animateEnd;
   }
 
   run(){
@@ -71,7 +73,7 @@ class Layout {
     } else {
       multitick( s );
 
-      s.eles.layoutPositions( this, s, getNodePosition );
+      s.eles.layoutPositions( this, s, getNodePositionData );
     }
 
     return this; // chaining
@@ -81,19 +83,6 @@ class Layout {
     this.state.running = false;
 
     return this; // chaining
-  }
-
-  // these functions would be overridden by subclasses
-  preTick( state ){ // eslint-disable-line no-unused-vars
-    // do something after all nodes ticked
-  }
-
-  postTick( state ){ // eslint-disable-line no-unused-vars
-    // do something after all nodes ticked
-  }
-
-  tickNode( state, positionData ){ // eslint-disable-line no-unused-vars
-    // modify { x, y } in positionData
   }
 
   destroy(){
