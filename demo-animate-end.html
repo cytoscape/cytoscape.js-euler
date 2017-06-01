@@ -46,14 +46,7 @@
 
 					// demo your layout
 					layout: {
-						name: 'euler',
-
-						randomize: true,
-						animate: 'end',
-						animationDuration: 1000,
-						animationEasing: 'spring(500, 20)'
-
-						// some more options here...
+						name: 'random'
 					},
 
 					style: [
@@ -82,6 +75,14 @@
 					elements: fetch('./example-graphs/planar-chain.json').then(function( res ){ return res.json(); })
 				});
 
+				cy.ready( function(){ // wait for graph data to load
+					cy.layout({
+						name: 'euler',
+						animate: 'end',
+						animationDuration: 3000,
+						animationEasing: 'spring(500, 20)'
+					}).run();
+				} );
 
 			});
 		</script>

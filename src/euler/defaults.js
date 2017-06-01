@@ -18,7 +18,7 @@ const defaults = Object.freeze({
   // Coulomb's law coefficient
   // - Makes the nodes repel each other for negative values
   // - Makes the nodes attract each other for positive values
-  gravity: -1.2,
+  gravity: -40,
 
   // Theta coefficient from Barnes-Hut simulation
   // - Value ranges on [0, 1]

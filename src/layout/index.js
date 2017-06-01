@@ -40,6 +40,8 @@ class Layout {
 
     s.nodes.forEach( n => setInitialNodePosition( n, s ) );
 
+    l.prerun( s );
+
     if( s.animateContinuously ){
       let fit = () => {
         if( s.fit && s.animateContinuously ){
@@ -76,8 +78,14 @@ class Layout {
       s.eles.layoutPositions( this, s, getNodePositionData );
     }
 
+    l.postrun( s );
+
     return this; // chaining
   }
+
+  prerun(){}
+  postrun(){}
+  tick(){}
 
   stop(){
     this.state.running = false;

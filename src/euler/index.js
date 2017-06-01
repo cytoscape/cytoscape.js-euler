@@ -37,22 +37,24 @@ const optFn = ( opt, ele ) => {
 class Euler extends Layout {
   constructor( options ){
     super( assign( {}, defaults, options ) );
+  }
 
-    let s = this.state;
+  prerun( state ){
+    let s = state;
 
     s.quadtree = makeQuadtree();
 
     let bodies = s.bodies = [];
 
     s.nodes.filter( notIsParent ).forEach( n => {
+      let scratch = getScratch( n );
+
       let body = makeBody({
-        pos: n.position(),
+        pos: { x: scratch.x, y: scratch.y },
         mass: optFn( s.mass, n )
       });
 
       body._cyNode = n;
-
-      let scratch = getScratch( n );
 
       scratch.body = body;
 
