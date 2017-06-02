@@ -24,6 +24,8 @@ function tick({ bodies, springs, quadtree, timeStep, gravity, theta, dragCoeff }
   bodies.forEach( body => {
     let p = body._scratch;
 
+    if( !p ){ return; }
+
     p.x = body.pos.x;
     p.y = body.pos.y;
   } );

@@ -46,7 +46,10 @@
 
 					// demo your layout
 					layout: {
-						name: 'random'
+						name: 'euler',
+						randomize: true
+
+						// some more options here...
 					},
 
 					style: [
@@ -58,8 +61,16 @@
 						},
 
 						{
+							selector: 'node:parent',
+							style: {
+								'background-opacity': 0.333
+							}
+						},
+
+						{
 							selector: 'edge',
 							style: {
+								'curve-style': 'bezier',
 								'target-arrow-shape': 'triangle'
 							}
 						},
@@ -72,24 +83,16 @@
 						}
 					],
 
-					elements: fetch('./example-graphs/planar-chain.json').then(function( res ){ return res.json(); })
+					elements: fetch('./example-graphs/compound.json').then(function( res ){ return res.json(); })
 				});
 
-				cy.ready( function(){ // wait for graph data to load
-					cy.layout({
-						name: 'euler',
-						animate: 'end',
-						animationDuration: 3000,
-						animationEasing: 'spring(500, 40)'
-					}).run();
-				} );
 
 			});
 		</script>
 	</head>
 
 	<body>
-		<h1>cytoscape-euler animate:end demo</h1>
+		<h1>cytoscape-euler compound demo</h1>
 
 		<div id="cy"></div>
 

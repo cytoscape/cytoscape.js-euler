@@ -44,9 +44,9 @@
 				var cy = window.cy = cytoscape({
 					container: document.getElementById('cy'),
 
-					// demo your layout
 					layout: {
-						name: 'random'
+						name: 'euler',
+						randomize: true
 					},
 
 					style: [
@@ -72,24 +72,15 @@
 						}
 					],
 
-					elements: fetch('./example-graphs/planar-chain.json').then(function( res ){ return res.json(); })
+					elements: fetch('./example-graphs/gal.json').then(function( res ){ return res.json(); }).then(function( json ){ return json.elements; })
 				});
-
-				cy.ready( function(){ // wait for graph data to load
-					cy.layout({
-						name: 'euler',
-						animate: 'end',
-						animationDuration: 3000,
-						animationEasing: 'spring(500, 40)'
-					}).run();
-				} );
 
 			});
 		</script>
 	</head>
 
 	<body>
-		<h1>cytoscape-euler animate:end demo</h1>
+		<h1>cytoscape-euler gal (yeast network) demo</h1>
 
 		<div id="cy"></div>
 
