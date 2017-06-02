@@ -29,12 +29,12 @@
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.5.1",
     "camelcase": "^4.1.0",
+    "cross-env": "^5.0.0",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
   "peerDependencies": {
     "cytoscape": "^3.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
