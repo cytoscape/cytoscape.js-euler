@@ -14,8 +14,16 @@ function integrate( bodies, timeStep ){
     var body = bodies[i],
         coeff = timeStep / body.mass;
 
-    body.velocity.x += coeff * body.force.x;
-    body.velocity.y += coeff * body.force.y;
+    if( body.grabbed ){ continue; }
+
+    if( body.locked ){
+      body.velocity.x = 0;
+      body.velocity.y = 0;
+    } else {
+      body.velocity.x += coeff * body.force.x;
+      body.velocity.y += coeff * body.force.y;
+    }
+
     var vx = body.velocity.x,
         vy = body.velocity.y,
         v = Math.sqrt(vx * vx + vy * vy);

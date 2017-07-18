@@ -1,11 +1,11 @@
 /**
-A generic force-directed layout class
+A generic continuous layout class
 */
 
 const assign = require('../assign');
 const defaults = require('./defaults');
 const makeBoundingBox = require('./make-bb');
-const { setInitialNodePosition, refreshPositions, getNodePositionData } = require('./position');
+const { setInitialPositionState, refreshPositions, getNodePositionData } = require('./position');
 const { multitick } = require('./tick');
 
 class Layout {
@@ -38,11 +38,59 @@ class Layout {
     if( s.ready ){ l.one( 'ready', s.ready ); }
     if( s.stop ){ l.one( 'stop', s.stop ); }
 
-    s.nodes.forEach( n => setInitialNodePosition( n, s ) );
+    s.nodes.forEach( n => setInitialPositionState( n, s ) );
 
     l.prerun( s );
 
     if( s.animateContinuously ){
+      let ungrabify = node => {
+        if( !s.ungrabifyWhileSimulating ){ return; }
+
+        let grabbable = getNodePositionData( node, s ).grabbable = node.grabbable();
+
+        if( grabbable ){
+          node.ungrabify();
+        }
+      };
+
+      let regrabify = node => {
+        if( !s.ungrabifyWhileSimulating ){ return; }
+
+        let grabbable = getNodePositionData( node, s ).grabbable;
+
+        if( grabbable ){
+          node.grabify();
+        }
+      };
+
+      let updateGrabState = node => getNodePositionData( node, s ).grabbed = node.grabbed();
+
+      let onGrab = function({ target }){
+        updateGrabState( target );
+      };
+
+      let onFree = onGrab;
+
+      let onDrag = function({ target }){
+        let p = getNodePositionData( target, s );
+        let tp = target.position();
+
+        p.x = tp.x;
+        p.y = tp.y;
+      };
+
+      let listenToGrab = node => {
+        node.on('grab', onGrab);
+        node.on('free', onFree);
+        node.on('drag', onDrag);
+      };
+
+      let unlistenToGrab = node => {
+        node.removeListener('grab', onGrab);
+        node.removeListener('free', onFree);
+        node.removeListener('drag', onDrag);
+      };
+
       let fit = () => {
         if( s.fit && s.animateContinuously ){
           s.cy.fit( s.padding );
@@ -50,7 +98,7 @@ class Layout {
       };
 
       let onNotDone = () => {
-        refreshPositions( s.nodes );
+        refreshPositions( s.nodes, s );
         fit();
 
         requestAnimationFrame( frame );
@@ -61,21 +109,33 @@ class Layout {
       };
 
       let onDone = () => {
-        refreshPositions( s.nodes );
+        refreshPositions( s.nodes, s );
         fit();
+
+        s.nodes.forEach( n => {
+          regrabify( n );
+          unlistenToGrab( n );
+        } );
 
         s.running = false;
 
         l.emit('layoutstop');
       };
 
+      s.startTime = Date.now();
+
       l.emit('layoutstart');
+
+      s.nodes.forEach( n => {
+        ungrabify( n );
+        listenToGrab( n );
+      } );
 
       frame(); // kick off
     } else {
       multitick( s );
 
-      s.eles.layoutPositions( this, s, getNodePositionData );
+      s.eles.layoutPositions( this, s, node => getNodePositionData( node, s ) );
     }
 
     l.postrun( s );

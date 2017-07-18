@@ -1,14 +1,14 @@
 const assign = require('../assign');
 
-let setInitialNodePosition = function( node, state ){
+let setInitialPositionState = function( node, state ){
   let p = node.position();
   let bb = state.currentBoundingBox;
-  let scratch = node.scratch('euler');
+  let scratch = node.scratch( state.name );
 
   if( scratch == null ){
     scratch = {};
 
-    node.scratch('euler', scratch);
+    node.scratch( state.name, scratch );
   }
 
   assign( scratch, state.randomize ? {
@@ -19,15 +19,16 @@ let setInitialNodePosition = function( node, state ){
     y: p.y
   } );
 
+  scratch.locked = node.locked();
 };
 
-let getNodePositionData = function( node ){
-  return node.scratch('euler');
+let getNodePositionData = function( node, state ){
+  return node.scratch( state.name );
 };
 
-let refreshPositions = function( nodes ){
+let refreshPositions = function( nodes, state ){
   nodes.positions(function( node ){
-    let scratch = node.scratch('euler');
+    let scratch = node.scratch( state.name );
 
     return {
       x: scratch.x,
@@ -36,4 +37,4 @@ let refreshPositions = function( nodes ){
   });
 };
 
-module.exports = { setInitialNodePosition, getNodePositionData, refreshPositions };
+module.exports = { setInitialPositionState, getNodePositionData, refreshPositions };

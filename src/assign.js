@@ -4,4 +4,4 @@ module.exports = Object.assign != null ? Object.assign.bind( Object ) : function
   } );
 
   return tgt;
-}
+};

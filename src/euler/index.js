@@ -14,7 +14,7 @@ const isParent = n => n.isParent();
 const notIsParent = n => !isParent(n);
 const isLocked = n => n.locked();
 const notIsLocked = n => !isLocked(n);
-const isParentEdge = e => isParent( e.source() ) || isParent( e.target() )
+const isParentEdge = e => isParent( e.source() ) || isParent( e.target() );
 const notIsParentEdge = e => !isParentEdge(e);
 const getBody = n => n.scratch('euler').body;
 const getNonParentDescendants = n => isParent(n) ? n.descendants().filter( notIsParent ) : n;
@@ -52,12 +52,13 @@ class Euler extends Layout {
     let bodies = s.bodies = [];
 
     // regular nodes
-    s.nodes.filter( n => notIsParent(n) && notIsLocked(n) ).forEach( n => {
+    s.nodes.filter( n => notIsParent(n) ).forEach( n => {
       let scratch = getScratch( n );
 
       let body = makeBody({
         pos: { x: scratch.x, y: scratch.y },
-        mass: optFn( s.mass, n )
+        mass: optFn( s.mass, n ),
+        locked: scratch.locked
       });
 
       body._cyNode = n;

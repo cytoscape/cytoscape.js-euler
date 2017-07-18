@@ -3,6 +3,22 @@ const { applyDrag } = require('./drag');
 const { applySpring } = require('./spring');
 
 function tick({ bodies, springs, quadtree, timeStep, gravity, theta, dragCoeff }){
+  // update body from scratch in case of any changes
+  bodies.forEach( body => {
+    let p = body._scratch;
+
+    if( !p ){ return; }
+
+    if( p.grabbed ){
+      console.log( 'grabbed' );
+    }
+
+    body.locked = p.locked;
+    body.grabbed = p.grabbed;
+    body.pos.x = p.x;
+    body.pos.y = p.y;
+  } );
+
   quadtree.insertBodies( bodies );
 
   for( let i = 0; i < bodies.length; i++ ){

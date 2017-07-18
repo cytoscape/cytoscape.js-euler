@@ -16,9 +16,7 @@ module.exports = Object.freeze({
 
   // positioning options
   randomize: false, // use random node positions at beginning of layout
-
-  // TODO other generic force-directed options
-
+  
   // infinite layout options
   infinite: false // overrides all other options for a forces-all-the-time mode
 });

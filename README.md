@@ -8,36 +8,6 @@
 Euler is a fast, high-quality force-directed (physics simulation) layout for Cytoscape.js
 
 
-## Contribution guidelines
-
-Please refer to [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
-
-
-## Mozilla Global Sprint 2017 instructions
-
-The goal of this project is to create a fast, high quality force-directed layout for Cytoscape.js.  Cytoscape.js has several force-directed layouts already, but there is a need for a small filesize, fast-running, high quality layout.  The existing layouts have tradeoffs, like prioritising speed over quality.
-
-The layout should:
-
-- be fast;
-- give high quality results for non-compound graphs;
-- have a relatively small filesize (ideally <20KB);
-- have lots of options for configuring / fine-tuning the layout;
-- have basic support for compound graphs;
-- be modular such that everything but its physics algorithm could be reusable as a generic force-directed layout superclass;
-- use modern tooling so that `slush-js` can be updated to generate extensions that use this tooling;
-
-These requirements would make Euler fit in a currently unfilled niche in the set of Cytoscape.js layouts.  A layout that meets these requirements would be very useful to scientists and commercial developers.
-
-The [`ngraph.asyncforce`](https://github.com/anvaka/ngraph.asyncforce) package has an existing MIT-licensed layout algorithm.  Though the algorithm is good, it's not very customisable and it requires a build-step for users.  That means a lot of users (especially scientists) can't use it.  
-
-[`ngraph.forcelayout`](https://github.com/Nickolasmv/cytoscape-ngraph.forcelayout) is a package that uses `ngraph.asyncforce` and packages it as a Cytoscape layout, but it has some tradeoffs that make that package not meet our requirements:  The layout is very large (500KB) and not very customisable, but it's fast and gives good results.
-
-That means we could use the essential bits of the algorithm from [`ngraph.asyncforce`](https://github.com/anvaka/ngraph.asyncforce) to build the Euler layout, and we could use [`ngraph.forcelayout`](https://github.com/Nickolasmv/cytoscape-ngraph.forcelayout) as a test to make sure the algorithm is ported correctly.  By then adding springs to keep the descendants of each compound node together, we'll have met all of the project requirements.  Any additional time that's left can be used to add new features to the layout, probably features identified as nice-to-have during testing or ones that project participants think up.
-
-The tasks to complete the layout project are in the [`mozsprint2017`](https://github.com/cytoscape/cytoscape.js-euler/milestone/1) milestone.
-
-
 ## Dependencies
 
  * cytoscape@^3.0.0
@@ -50,7 +20,7 @@ Download the library:
  * via bower: `bower install cytoscape-euler`, or
  * via direct download in the repository (probably from a tag).
 
-`require()` the library as appropriate for your project:
+Import the library as appropriate for your project:
 
 ES import:
 ```js
@@ -80,7 +50,31 @@ Plain HTML/JS has the extension registered for you automatically, because no `re
 
 ## API
 
-TODO describe the options that the Euler layout supports.
+Specify an options object with `name: 'euler'` to run the layout.  All other fields are optional.  An example with the default options follows:
+
+```js
+let defaults = {
+  name: 'euler',
+
+  animate: true, // whether to show the layout as it's running; special 'end' value makes the layout animate like a discrete layout
+  refresh: 10, // number of ticks per frame; higher is faster but more jerky
+  maxIterations: 1000, // max iterations before the layout will bail out
+  maxSimulationTime: 4000, // max length in ms to run the layout
+  ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
+  fit: true, // on every layout reposition of nodes, fit the viewport
+  padding: 30, // padding around the simulation
+  boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+
+  // layout event callbacks
+  ready: function(){}, // on layoutready
+  stop: function(){}, // on layoutstop
+
+  // positioning options
+  randomize: false // use random node positions at beginning of layout
+};
+
+cy.layout( defaults ).run();
+```
 
 
 ## Build instructions

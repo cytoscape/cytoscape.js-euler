@@ -1,13 +1,10 @@
-const { getNodePositionData } = require('./position');
 const nop = function(){};
 
 let tick = function( state ){
   let s = state;
   let l = state.layout;
 
-  if( s.tickIndex >= s.maxIterations ){ return true; }
-
-  let isDone = l.tick( s );
+  let tickIndicatesDone = l.tick( s );
 
   if( s.firstUpdate ){
     if( s.animateContinuously ){ // indicate the initial positions have been set
@@ -18,7 +15,9 @@ let tick = function( state ){
 
   s.tickIndex++;
 
-  return isDone;
+  let duration = s.startTime - Date.now();
+
+  return !s.infinite && ( tickIndicatesDone || s.tickIndex >= s.maxIterations || duration >= s.maxSimulationTime );
 };
 
 let multitick = function( state, onNotDone = nop, onDone = nop ){
