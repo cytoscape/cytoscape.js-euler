@@ -56,7 +56,7 @@ Specify an options object with `name: 'euler'` to run the layout.  All other fie
 let defaults = {
   name: 'euler',
 
-  // The ideal legth of a spring
+  // The ideal length of a spring
   // - This acts as a hint for the edge length
   // - The edge length can be longer or shorter if the forces are set to extreme values
   springLength: edge => 80,
