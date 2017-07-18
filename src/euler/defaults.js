@@ -1,4 +1,3 @@
-// TODO default euler-specific options
 const defaults = Object.freeze({
   // The ideal legth of a spring
   // - This acts as a hint for the edge length
