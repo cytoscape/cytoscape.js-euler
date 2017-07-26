@@ -1,6 +1,7 @@
 # cytoscape-euler
 
-[![Join the chat at https://gitter.im/cytoscape-js-euler/Lobby](https://badges.gitter.im/cytoscape-js-euler/Lobby.svg)](https://gitter.im/cytoscape-js-euler/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/cytoscape-js-euler/Lobby](https://badges.gitter.im/cytoscape-js-euler/Lobby.svg)](https://gitter.im/cytoscape-js-euler/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![DOI](https://zenodo.org/badge/91359702.svg)](https://zenodo.org/badge/latestdoi/91359702)
+
 
 
 ## Description
@@ -167,3 +168,4 @@ This project is set up to automatically be published to npm and bower.  To publi
 1. Push to origin: `git push && git push --tags`
 1. Publish to npm: `npm publish .`
 1. If publishing to bower for the first time, you'll need to run `bower register cytoscape-euler https://github.com/cytoscape/cytoscape.js-euler.git`
+1. Make a release on GitHub to automatically register a new Zenodo DOI
