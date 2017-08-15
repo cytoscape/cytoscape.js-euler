@@ -9,10 +9,6 @@ function tick({ bodies, springs, quadtree, timeStep, gravity, theta, dragCoeff }
 
     if( !p ){ return; }
 
-    if( p.grabbed ){
-      console.log( 'grabbed' );
-    }
-
     body.locked = p.locked;
     body.grabbed = p.grabbed;
     body.pos.x = p.x;
