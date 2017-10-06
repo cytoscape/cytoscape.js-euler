@@ -24,7 +24,7 @@ let multitick = function( state, onNotDone = nop, onDone = nop ){
   let done = false;
   let s = state;
 
-  for( let i = 0; i < s.maxIterations; i++ ){
+  for( let i = 0; i < s.refresh; i++ ){
     done = !s.running || tick( s );
 
     if( done ){ break; }

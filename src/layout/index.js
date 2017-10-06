@@ -133,7 +133,13 @@ class Layout {
 
       frame(); // kick off
     } else {
-      multitick( s );
+      let done = false;
+      let onNotDone = () => {};
+      let onDone = () => done = true;
+
+      while( !done ){
+        multitick( s, onNotDone, onDone );
+      }
 
       s.eles.layoutPositions( this, s, node => getNodePositionData( node, s ) );
     }
