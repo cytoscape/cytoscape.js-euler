@@ -15,7 +15,7 @@ let tick = function( state ){
 
   s.tickIndex++;
 
-  let duration = s.startTime - Date.now();
+  let duration = Date.now() - s.startTime;
 
   return !s.infinite && ( tickIndicatesDone || s.tickIndex >= s.maxIterations || duration >= s.maxSimulationTime );
 };
