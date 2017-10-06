@@ -30,7 +30,7 @@ class Layout {
 
     s.tickIndex = 0;
     s.firstUpdate = true;
-
+    s.startTime = Date.now();
     s.running = true;
 
     s.currentBoundingBox = makeBoundingBox( s.boundingBox, s.cy );
@@ -121,8 +121,6 @@ class Layout {
 
         l.emit('layoutstop');
       };
-
-      s.startTime = Date.now();
 
       l.emit('layoutstart');
 

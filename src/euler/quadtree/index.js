@@ -42,7 +42,7 @@ function makeQuadtree(){
     return node;
   }
 
-  function update( sourceBody, gravity, theta ) {
+  function update( sourceBody, gravity, theta, pull ) {
     let queue = updateQueue,
       v,
       dx,
@@ -56,6 +56,14 @@ function makeQuadtree(){
     queue[0] = root;
 
     resetVec( sourceBody.force );
+
+    let px = -sourceBody.pos.x;
+    let py = -sourceBody.pos.y;
+    let pr = Math.sqrt(px * px + py * py);
+    let pv = sourceBody.mass * pull / pr;
+
+    fx += pv * px;
+    fy += pv * py;
 
     while (queueLength) {
       let node = queue[shiftIdx],

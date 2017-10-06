@@ -2,7 +2,7 @@ const { integrate } = require('./integrate');
 const { applyDrag } = require('./drag');
 const { applySpring } = require('./spring');
 
-function tick({ bodies, springs, quadtree, timeStep, gravity, theta, dragCoeff }){
+function tick({ bodies, springs, quadtree, timeStep, gravity, theta, dragCoeff, pull }){
   // update body from scratch in case of any changes
   bodies.forEach( body => {
     let p = body._scratch;
@@ -20,7 +20,7 @@ function tick({ bodies, springs, quadtree, timeStep, gravity, theta, dragCoeff }
   for( let i = 0; i < bodies.length; i++ ){
     let body = bodies[i];
 
-    quadtree.updateBodyForce( body, gravity, theta );
+    quadtree.updateBodyForce( body, gravity, theta, pull );
     applyDrag( body, dragCoeff );
   }
 

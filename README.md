@@ -77,6 +77,10 @@ let defaults = {
   // - Makes the nodes attract each other for positive values
   gravity: -1.2,
 
+  // A force that pulls nodes towards the origin (0, 0)
+  // Higher values keep the components less spread out
+  pull: 0.001,
+
   // Theta coefficient from Barnes-Hut simulation
   // - Value ranges on [0, 1]
   // - Performance is better with smaller values
