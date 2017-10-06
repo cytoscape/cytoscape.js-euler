@@ -141,6 +141,8 @@ function makeQuadtree(){
   }
 
   function insertBodies(bodies) {
+    if( bodies.length === 0 ){ return; }
+
     let x1 = Number.MAX_VALUE,
       y1 = Number.MAX_VALUE,
       x2 = Number.MIN_VALUE,
