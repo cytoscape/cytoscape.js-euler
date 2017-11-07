@@ -4,6 +4,9 @@
   "description": "A fast, high-quality force-directed (physics simulation) layout for Cytoscape.js",
   "main": "cytoscape-euler.js",
   "scripts": {
+    "postpublish": "run-s gh-pages:demo gh-pages:deploy",
+    "gh-pages:demo": "cpy demo.html . --rename=index.html",
+    "gh-pages:deploy": "gh-pages -d .",
     "lint": "eslint src",
     "build": "cross-env NODE_ENV=production webpack",
     "build:min": "cross-env NODE_ENV=production MIN=true webpack",
@@ -31,7 +34,10 @@
     "camelcase": "^4.1.0",
     "cross-env": "^5.0.0",
     "webpack": "^2.6.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^2.4.5",
+    "cpy-cli": "^1.0.1",
+    "npm-run-all": "^4.1.2",
+    "gh-pages": "^1.0.0"
   },
   "peerDependencies": {
     "cytoscape": "^3.0.0"
