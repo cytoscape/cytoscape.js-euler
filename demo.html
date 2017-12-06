@@ -47,7 +47,8 @@
 					// demo your layout
 					layout: {
 						name: 'euler',
-						randomize: true
+						randomize: true,
+						animate: false
 
 						// some more options here...
 					},
@@ -56,14 +57,16 @@
 						{
 							selector: 'node',
 							style: {
-								'content': 'data(name)'
+								'content': 'data(name)',
+								'background-color': '#126814'
 							}
 						},
 
 						{
 							selector: 'edge',
 							style: {
-								'target-arrow-shape': 'triangle'
+								'line-color': '#126814',
+								'opacity': 0.5
 							}
 						},
 
