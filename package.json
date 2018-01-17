@@ -1,6 +1,6 @@
 {
   "name": "cytoscape-euler",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A fast, high-quality force-directed (physics simulation) layout for Cytoscape.js",
   "main": "cytoscape-euler.js",
   "scripts": {
