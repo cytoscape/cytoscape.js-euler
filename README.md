@@ -175,4 +175,4 @@ This project is set up to automatically be published to npm and bower.  To publi
 1. Push to origin: `git push && git push --tags`
 1. Publish to npm: `npm publish .`
 1. If publishing to bower for the first time, you'll need to run `bower register cytoscape-euler https://github.com/cytoscape/cytoscape.js-euler.git`
-1. Make a release on GitHub to automatically register a new Zenodo DOI
+1. [Make a release on GitHub](https://github.com/cytoscape/cytoscape.js-euler/releases/new) to automatically register a new Zenodo DOI
