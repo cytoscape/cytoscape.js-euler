@@ -36,6 +36,7 @@
     "camelcase": "^4.1.0",
     "cpy-cli": "^1.0.1",
     "cross-env": "^5.0.0",
+    "eslint": "^4.15.0",
     "gh-pages": "^1.0.0",
     "npm-run-all": "^4.1.2",
     "update": "^0.7.4",
