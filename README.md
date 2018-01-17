@@ -24,6 +24,7 @@ Download the library:
 Import the library as appropriate for your project:
 
 ES import:
+
 ```js
 import cytoscape from 'cytoscape';
 import euler from 'cytoscape-euler';
@@ -32,6 +33,7 @@ cytoscape.use( euler );
 ```
 
 CommonJS:
+
 ```js
 let cytoscape = require('cytoscape');
 let euler = require('cytoscape-euler');
@@ -40,6 +42,7 @@ cytoscape.use( euler );
 ```
 
 AMD:
+
 ```js
 require(['cytoscape', 'cytoscape-euler'], function( cytoscape, euler ){
   euler( cytoscape ); // register extension
