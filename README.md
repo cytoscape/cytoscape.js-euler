@@ -6,7 +6,7 @@
 
 ## Description
 
-Euler is a fast, high-quality force-directed (physics simulation) layout for Cytoscape.js
+Euler is a fast, high-quality force-directed (physics simulation) layout for Cytoscape.js ([demo](https://cytoscape.github.io/cytoscape.js-euler))
 
 
 ## Dependencies
