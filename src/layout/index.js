@@ -139,7 +139,11 @@ class Layout {
         multitick( s, onNotDone, onDone );
       }
 
-      s.eles.layoutPositions( this, s, node => getNodePositionData( node, s ) );
+      s.eles.layoutPositions( this, s, node => {
+        let pd = getNodePositionData( node, s );
+
+        return { x: pd.x, y: pd.y };
+      } );
     }
 
     l.postrun( s );
