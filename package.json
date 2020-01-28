@@ -1,12 +1,12 @@
 {
   "name": "cytoscape-euler",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A fast, high-quality force-directed (physics simulation) layout for Cytoscape.js",
   "main": "cytoscape-euler.js",
   "scripts": {
     "postpublish": "run-s gh-pages:demo gh-pages:deploy gh-pages:clean",
     "gh-pages:demo": "cpy demo.html . --rename=index.html",
-    "gh-pages:deploy": "gh-pages -d .",
+    "gh-pages:deploy": "gh-pages -d . -v node_modules/**",
     "gh-pages:clean": "rimraf index.html",
     "copyright": "update license",
     "lint": "eslint src",
