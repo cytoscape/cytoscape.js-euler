@@ -1,0 +1,93 @@
+<!DOCTYPE>
+
+<html>
+
+	<head>
+		<title>cytoscape-euler.js demo</title>
+
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.5.0/bluebird.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+		<script src="https://unpkg.com/cytoscape/dist/cytoscape.umd.js"></script>
+
+		<!-- for testing with local version of cytoscape.js -->
+		<!--<script src="../cytoscape.js/build/cytoscape.js"></script>-->
+
+		<script src="cytoscape-euler.js"></script>
+
+		<style>
+			body {
+				font-family: helvetica neue, helvetica, liberation sans, arial, sans-serif;
+				font-size: 14px;
+			}
+
+			#cy {
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				z-index: 999;
+			}
+
+			h1 {
+				opacity: 0.5;
+				font-size: 1em;
+				font-weight: bold;
+			}
+		</style>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', function(){
+				const n = 5000;
+				document.getElementById("h1").innerText+=` (${n} nodes)`;
+				const elements = Array.from(Array(n).keys()).map(i => ({data: {id: 'n'+i}, group: 'nodes', position: {x:0, y:0}}));
+				const edges = Array.from(Array(n-1).keys()).map(i => ({group: 'edges', data: {id: 'e'+i, source: 'n'+i, target: 'n'+(i+1) }}));
+				elements.push(...edges);
+				var cy = window.cy = cytoscape({
+					container: document.getElementById('cy'),
+
+					layout: {
+						name: 'euler',
+						randomize: false
+					},
+
+					style: [
+						{
+							selector: 'node',
+							style: {
+								'content': 'data(name)'
+							}
+						},
+
+						{
+							selector: 'edge',
+							style: {
+								'target-arrow-shape': 'triangle'
+							}
+						},
+
+						{
+							selector: ':selected',
+							style: {
+
+							}
+						}
+					],
+
+					elements
+				});
+
+			});
+		</script>
+	</head>
+
+	<body>
+		<h1 id="h1">cytoscape-euler large chain demo</h1>
+
+		<div id="cy"></div>
+
+	</body>
+
+</html>
