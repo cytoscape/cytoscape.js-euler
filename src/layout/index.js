@@ -12,9 +12,27 @@ class Layout {
   constructor( options ){
     let o = this.options = assign( {}, defaults, options );
 
+		let nodes = o.eles.nodes();
+		// prevent infinite loop and memory overflow when nodes occupy the same position
+		if(!o.randomize)
+		{
+			nodes = nodes.sort((a,b)=>a.position().x-b.position().x);
+			const prev = {x: 0, y: 0};
+			const pos = {};
+			nodes.forEach(n=>
+			{
+				Object.assign(pos,n.position());
+				if(Math.abs(prev.x - pos.x) < o.theta && Math.abs(prev.y - pos.y) < o.theta)
+				{
+					n.position({x: Math.random()*100, y: Math.random()*100});
+				}
+				Object.assign(prev,pos);
+			});
+		}
+
     let s = this.state = assign( {}, o, {
       layout: this,
-      nodes: o.eles.nodes(),
+      nodes,
       edges: o.eles.edges(),
       tickIndex: 0,
       firstUpdate: true
