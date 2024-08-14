@@ -9,6 +9,10 @@
 
 var toPath = require('to-object-path');
 
+function isValidKey(key) {
+  return key !== '__proto__' && key !== 'constructor' && key !== 'prototype';
+}
+
 /**
  * Defines a getter function on an object using property path notation.
  *
@@ -40,11 +44,13 @@ function setGetter(obj, prop, getter) {
 
 function define(obj, prop, getter) {
   if (!~prop.indexOf('.')) {
-    defineProperty(obj, prop, getter);
+    if (isValidKey(prop)) {
+      defineProperty(obj, prop, getter);
+    }
     return obj;
   }
 
-  var keys = prop.split('.');
+  var keys = prop.split('.').filter(isValidKey);
   var last = keys.pop();
   var target = obj;
   var key;

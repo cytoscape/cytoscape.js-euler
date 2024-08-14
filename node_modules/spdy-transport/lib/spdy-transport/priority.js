@@ -71,10 +71,9 @@ PriorityNode.prototype.remove = function remove () {
 PriorityNode.prototype.removeChild = function removeChild (child) {
   this.children.weight -= child.weight
   var index = utils.binarySearch(this.children.list, child, compareChildren)
-  assert(index !== -1)
-
-  // Remove the child
-  this.children.list.splice(index, 1)
+  if (index !== -1 && this.children.list.length >= index) {
+    this.children.list.splice(index, 1)
+  }
 }
 
 PriorityNode.prototype.removeChildren = function removeChildren () {
@@ -134,10 +133,10 @@ PriorityTree.prototype.add = function add (options) {
   }
 
   debug('add node=%d parent=%d weight=%d exclusive=%d',
-        options.id,
-        options.parent === null ? -1 : options.parent,
-        options.weight || this.defaultWeight,
-        options.exclusive ? 1 : 0)
+    options.id,
+    options.parent === null ? -1 : options.parent,
+    options.weight || this.defaultWeight,
+    options.exclusive ? 1 : 0)
 
   var children
   if (options.exclusive) {
@@ -183,5 +182,7 @@ PriorityTree.prototype.addDefault = function addDefault (id) {
 
 PriorityTree.prototype._removeNode = function _removeNode (node) {
   delete this.map[node.id]
+  var index = utils.binarySearch(this.list, node, compareChildren)
+  this.list.splice(index, 1)
   this.count--
 }

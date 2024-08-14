@@ -7,8 +7,6 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
 var util = require('util');
 var debug = require('debug')('base:base-env');
 var resolve = require('./resolve');

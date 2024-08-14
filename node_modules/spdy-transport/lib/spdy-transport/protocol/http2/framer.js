@@ -92,8 +92,8 @@ Framer.prototype._split = function _split (frame) {
 }
 
 Framer.prototype._continuationFrame = function _continuationFrame (frame,
-                                                                  body,
-                                                                  callback) {
+  body,
+  callback) {
   var frames = this._split(frame)
 
   frames.forEach(function (subFrame, i) {
@@ -134,8 +134,8 @@ Framer.prototype._continuationFrame = function _continuationFrame (frame,
 }
 
 Framer.prototype._compressHeaders = function _compressHeaders (headers,
-                                                              pairs,
-                                                              callback) {
+  pairs,
+  callback) {
   Object.keys(headers || {}).forEach(function (name) {
     var lowName = name.toLowerCase()
 
@@ -254,8 +254,8 @@ Framer.prototype._headersFrame = function _headersFrame (kind, frame, callback) 
         return
       }
 
-      buf.writeUInt32BE((priority.exclusive ? 0x80000000 : 0) |
-                        priority.parent)
+      buf.writeUInt32BE(((priority.exclusive ? 0x80000000 : 0) |
+                         priority.parent) >>> 0)
       buf.writeUInt8((priority.weight | 0) - 1)
     }, callback)
   })
@@ -343,6 +343,9 @@ Framer.prototype.pushFrame = function pushFrame (frame, callback) {
 
     compress(frame.headers, pairs.promise, function (promiseChunks) {
       sendPromise(promiseChunks)
+      if (frame.response === false) {
+        return callback(null)
+      }
       compress(frame.response, pairs.response, function (responseChunks) {
         sendResponse(responseChunks, callback)
       })
@@ -499,7 +502,7 @@ Framer.prototype.ackSettingsFrame = function ackSettingsFrame (callback) {
 }
 
 Framer.prototype.windowUpdateFrame = function windowUpdateFrame (frame,
-                                                                callback) {
+  callback) {
   this._frame({
     id: frame.id,
     type: 'WINDOW_UPDATE',

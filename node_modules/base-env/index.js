@@ -1,8 +1,8 @@
 /*!
- * base-env <https://github.com/jonschlinkert/base-env>
+ * base-env <https://github.com/base/base-env>
  *
- * Copyright (c) 2015, Jon Schlinkert.
- * Licensed under the MIT License.
+ * Copyright (c) 2015-present, Jon Schlinkert.
+ * Released under the MIT License.
  */
 
 'use strict';

@@ -3,7 +3,6 @@
 var fs = require('fs');
 var path = require('path');
 var utils = require('./utils');
-var File = require('./file');
 
 /**
  * Return true if `filepath` exists on the file system
@@ -35,7 +34,6 @@ module.exports = function(file, options) {
   return file;
 };
 
-
 function resolvePath(file, options) {
   var opts = utils.extend({}, options, file.options);
 
@@ -45,7 +43,6 @@ function resolvePath(file, options) {
     }
     return file.stat.isDirectory();
   };
-
 
   Object.defineProperty(file, 'pkgPath', {
     configurable: true,

@@ -161,7 +161,7 @@ Object.defineProperty(File.prototype, 'path', {
     }
   },
   get: function() {
-     return this.history[this.history.length - 1];
+    return this.history[this.history.length - 1];
   }
 });
 
