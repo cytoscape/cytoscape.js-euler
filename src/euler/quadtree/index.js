@@ -57,8 +57,9 @@ function makeQuadtree(){
 
     resetVec( sourceBody.force );
 
-    let px = -sourceBody.pos.x;
-    let py = -sourceBody.pos.y;
+    // pos.x and pox.y of exactly 0 causes a `NaN` from an `Infinity*0`, nudge them.
+    let px = -(sourceBody.pos.x || 1e-10);
+    let py = -(sourceBody.pos.y || 1e-10);
     let pr = Math.sqrt(px * px + py * py);
     let pv = sourceBody.mass * pull / pr;
 

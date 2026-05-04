@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>cytoscape-euler.js demo</title>
+
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.5.0/bluebird.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+		<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+
+		<!-- for testing with local version of cytoscape.js -->
+		<!--<script src="../cytoscape.js/build/cytoscape.js"></script>-->
+
+		<script src="cytoscape-euler.js"></script>
+
+		<style>
+			body {
+				font-family: helvetica neue, helvetica, liberation sans, arial, sans-serif;
+				font-size: 14px;
+			}
+
+			#cy {
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				z-index: 999;
+			}
+		</style>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', function(){
+				const layoutOptions = {
+					name: 'euler',
+				}
+
+				var cy = window.cy = cytoscape({
+					container: document.getElementById('cy'),
+
+					layout: {
+						...layoutOptions,
+						fit: true,
+						animate: false,
+					},
+
+					style: [
+						{
+							selector: 'node',
+							style: {
+								'content': 'data(id)'
+							}
+						},
+
+						{
+							selector: 'edge',
+							style: {
+								'target-arrow-shape': 'triangle'
+							}
+						},
+					],
+
+					elements: []
+				});
+
+				setTimeout(() => {
+					fetch('./example-graphs/regression-pos0-issue.json')
+						.then(res => res.json())
+						.then(json => json.elements)
+						.then(elements => cy.add(elements))
+						.then(() => {
+							const layout = cy.layout({...layoutOptions, animate: true});
+							layout.run();
+						});
+				}, 500);
+			});
+		</script>
+	</head>
+
+	<body>
+		<h1>cytoscape-euler issue demo</h1>
+
+		<div id="cy"></div>
+
+	</body>
+
+</html>
